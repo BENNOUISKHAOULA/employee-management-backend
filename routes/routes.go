@@ -1,14 +1,19 @@
 package routes
 
 import (
-    "github.com/gin-gonic/gin"
+	"employee-management-backend/controllers"
+
+	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter() *gin.Engine {
-    router := gin.Default()
-    router.GET("/employees", GetEmployees)
-    router.POST("/employees", AddEmployee)
-    router.PUT("/employees/:id", UpdateEmployee)
-    router.DELETE("/employees/:id", DeleteEmployee)
-    return router
+func SetupRouter(employeeController *controllers.EmployeeController) *gin.Engine {
+	router := gin.Default()
+
+	router.GET("/employees", employeeController.GetAllEmployees)
+	router.GET("/employees/:id", employeeController.GetEmployeeByID)
+	router.POST("/employees", employeeController.AddEmployee)
+	router.PUT("/employees/:id", employeeController.UpdateEmployee)
+	router.DELETE("/employees/:id", employeeController.DeleteEmployee)
+
+	return router
 }
